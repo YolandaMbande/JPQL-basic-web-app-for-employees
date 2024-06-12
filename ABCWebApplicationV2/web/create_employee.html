@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Create Employee Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Enter Employee Details</h1>
+        <p>
+            <i>
+                Please enter your details in the form below:
+            </i>
+        </p>
+        <form action="CreateEmployeeServlet.do" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Name : </td>
+                    <td><input type="text" name="name" required></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td>Image : </td>
+                    <td><input type="file" name="image" required></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td>Temperature : </td>
+                    <td><input type="number" name="temps[]" required></td>
+                    <td><button type="button" onclick="AddRow(this)">Record Another</button></td>
+                </tr>
+                
+                <tr>
+                    <td>Subjects : </td>
+                    <td><input type="text" name="subjects[]" required></td>
+                    <td><button type="button" onclick="AddSecondRow(this)">Record Another</button></td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" value="CREATE EMPLOYEE">
+        </form>
+        
+        <script>
+            function AddRow(button){
+                var current = button.parentNode.parentNode;
+                var newrow = current.cloneNode(true);
+                
+                newrow.querySelectorAll('input[name="temps[]"]').forEach(input =>
+                {
+                    input.value ='';
+                });
+                current.parentNode.insertBefore(newrow, current.nextSibling);
+            }
+            function AddSecondRow(button){
+                var current = button.parentNode.parentNode;
+                var newrow = current.cloneNode(true);
+                
+                newrow.querySelectorAll('input[name="subjects[]"]').forEach(input =>
+                {
+                    input.value ='';
+                });
+                current.parentNode.insertBefore(newrow, current.nextSibling);
+            }
+        </script>
+    </body>
+</html>

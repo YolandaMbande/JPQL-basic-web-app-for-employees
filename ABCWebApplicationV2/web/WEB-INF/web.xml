@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>CreateEmployeeServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.CreateEmployeeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>high_temp_employee</servlet-name>
+        <servlet-class>za.ac.tut.web.high_temp_employee</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOutServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.LogOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>low_temp_employee</servlet-name>
+        <servlet-class>za.ac.tut.web.low_temp_employee</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>high_twice_employee</servlet-name>
+        <servlet-class>za.ac.tut.web.high_twice_employee</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>youngest_employee</servlet-name>
+        <servlet-class>za.ac.tut.web.youngest_employee</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateEmployeeServlet</servlet-name>
+        <url-pattern>/CreateEmployeeServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>high_temp_employee</servlet-name>
+        <url-pattern>/high_temp_employee.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOutServlet</servlet-name>
+        <url-pattern>/LogOutServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>low_temp_employee</servlet-name>
+        <url-pattern>/low_temp_employee.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>high_twice_employee</servlet-name>
+        <url-pattern>/high_twice_employee.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>youngest_employee</servlet-name>
+        <url-pattern>/youngest_employee.do</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <security-constraint>
+        <display-name>ManagerConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>ManagerResources</web-resource-name>
+            <description>Resources that belong to the manager.</description>
+            <url-pattern>/youngest_employee.do</url-pattern>
+            <url-pattern>/high_twice_employee.do</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Authenticate the user.</description>
+            <role-name>Manager</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>OfficerConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>OfficerResources</web-resource-name>
+            <description>Resources that belong to the officer.</description>
+            <url-pattern>/high_temp_employee.do</url-pattern>
+            <url-pattern>/low_temp_employee.do</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Authenticate the user.</description>
+            <role-name>Officer</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>PerosnConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>PersonResources</web-resource-name>
+            <description>Resources that belong to the person.</description>
+            <url-pattern>/create_employee.html</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Authenticate the user.</description>
+            <role-name>Person</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>file</realm-name>
+        <form-login-config>
+            <form-login-page>/login_form.jsp</form-login-page>
+            <form-error-page>/login_error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>The Person Security role
+</description>
+        <role-name>Person</role-name>
+    </security-role>
+    <security-role>
+        <description>The Manager Security role.</description>
+        <role-name>Manager</role-name>
+    </security-role>
+    <security-role>
+        <description>The Officer Security role.</description>
+        <role-name>Officer</role-name>
+    </security-role>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/access_denied.jsp</location>
+    </error-page>
+</web-app>
